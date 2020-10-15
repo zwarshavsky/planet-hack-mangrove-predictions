@@ -20,9 +20,10 @@ class MangrovePlanet():
             print("Authorization Failed")
         return res, status_code
     
-    def process_data(self):
+    def fetch_data(self):
         res, status_code = self.auth_obj()
         return res, status_code
 
 if __name__ == "__main__":
-    res, status_code = self.process_data()
+    mangrove = MangrovePlanet()
+    res, status_code = mangrove.fetch_data()
