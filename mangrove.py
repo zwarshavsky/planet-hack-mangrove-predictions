@@ -1,4 +1,5 @@
 import json
+import os
 import requests
 
 PLANET_API_KEY = '75c03d018975419abdf76b779154d5ae'
@@ -25,11 +26,11 @@ class MangrovePlanet():
             print("Authorization Failed")
         return res, status_code
     
-    def fetch_stats_data(self):
+    def fetch_stats_data_by_date(self, filter, date):
 
         try:
             item_types = ["PSScene3Band", "REOrthoTile"]
-            date_filter = {"type": "DateRangeFilter", "field_name": "acquired", "config": {"gte": "2013-01-01T00:00:00.000Z"}}
+            date_filter = {"type": "DateRangeFilter", "field_name": "acquired", "config": {"{filter}".format(filter=filter): "{date}".format(date=date)}}
             request = {"item_types" : item_types, "interval" : "year", "filter" : date_filter}
             res, status_code = self.send_planet_request(request_type="/stats", method="post", request=request)
         except Exception as ex:
@@ -37,7 +38,12 @@ class MangrovePlanet():
             print("Request failed")
 
         return res, status_code
+    
+    def fetch_analytic_sr_data(self, file_name, greater_than_date, less_than_date):
+        command = "planet data download --geom @{file_name} --item-type=PSScene4Band --asset-type=analytic_sr --date acquired gt {greater_than_date} --date acquired lt {less_than_date}".format(file_name=file_name, greater_than_date=greater_than_date, less_than_date=less_than_date)
+        os.system(command)
 
 if __name__ == "__main__":
     mangrove = MangrovePlanet()
-    res, status_code = mangrove.fetch_stats_data()
+    mangrove.fetch_analytic_sr_data(file_name="test_geometry.geojson", greater_than_date="2020-10-01", less_than_date="2020-10-15")
+    
