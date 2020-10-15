@@ -1,0 +1,9 @@
+name: planet-hack
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - jupyter
+  - numpy
+  - rasterio
+  - requests
