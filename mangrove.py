@@ -40,4 +40,4 @@ class MangrovePlanet():
 
 if __name__ == "__main__":
     mangrove = MangrovePlanet()
-    res, status_code = mangrove.fetch_data()
+    res, status_code = mangrove.fetch_stats_data()
