@@ -40,10 +40,13 @@ class MangrovePlanet():
         return res, status_code
     
     def fetch_analytic_sr_data(self, file_name, greater_than_date, less_than_date):
-        command = "planet data download --geom @{file_name} --item-type=PSScene4Band --asset-type=analytic_sr --date acquired gt {greater_than_date} --date acquired lt {less_than_date}".format(file_name=file_name, greater_than_date=greater_than_date, less_than_date=less_than_date)
+        # cloud cover percentage: 0-2% cloud cover; 
+        # 1 unique tile ID per month
+        # 2016 
+        command = "planet -k {API_KEY} data download --item-type 'PSScene4Band' --asset-type 'analytic_sr' --date acquired gt '{greater_than_date}' --date acquired lt '{less_than_date}' --range cloud_cover lt '0.2' --geom '{file_name}' --dest 's3://path_here'".format(API_KEY=PLANET_API_KEY, greater_than_date=greater_than_date, less_than_date=less_than_date, file_name=file_name)
         os.system(command)
 
 if __name__ == "__main__":
     mangrove = MangrovePlanet()
-    mangrove.fetch_analytic_sr_data(file_name="test_geometry.geojson", greater_than_date="2020-10-01", less_than_date="2020-10-15")
+    mangrove.fetch_analytic_sr_data(greater_than_date="2020-10-01", less_than_date="2020-10-15", file_name="test_geometry.geojson")
     
