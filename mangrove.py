@@ -45,10 +45,11 @@ class MangrovePlanet():
         # 1 unique tile ID per month
         # 2016
         # testing
-        #os.system("touch test.txt")
-        path = "/Users/sgadepalli/Google\ Drive\ \(mangroveplanet\@gmail.com\)/"
-        # os.system("mv test.txt {path}".format(path=path))
-        command = "planet -k {API_KEY} data download --item-type 'PSScene4Band' --asset-type 'analytic_sr' --date acquired gt '{greater_than_date}' --date acquired lt '{less_than_date}' --range cloud_cover lt '0.2' --geom '{file_name}' --dest '{PATH}'".format(API_KEY=PLANET_API_KEY, greater_than_date=greater_than_date, less_than_date=less_than_date, file_name=file_name, PATH=path)
+        #os.system("touch test_two.txt")
+        path = "/Users/sgadepalli/Desktop/google_drive/"
+        #os.system("mv test_two.txt {path}".format(path=path))
+        #exit(0)
+        command = "planet -k {API_KEY} data download --item-type 'PSScene4Band' --asset-type 'analytic_sr' --date acquired gt '{greater_than_date}' --date acquired lt '{less_than_date}' --range cloud_cover lt '0.02' --geom '{file_name}' --dest '{PATH}'".format(API_KEY=PLANET_API_KEY, greater_than_date=greater_than_date, less_than_date=less_than_date, file_name=file_name, PATH=path)
         os.system(command)
     
     def read_tif_image(self, image_path):
@@ -57,5 +58,5 @@ class MangrovePlanet():
 
 if __name__ == "__main__":
     mangrove = MangrovePlanet()
-    mangrove.fetch_analytic_sr_data(greater_than_date="2020-10-01", less_than_date="2020-10-15", file_name="test_geometry.geojson")
+    mangrove.fetch_analytic_sr_data(greater_than_date="2019-10-01", less_than_date="2020-10-15", file_name="test_geometry.geojson")
     
