@@ -2,7 +2,7 @@ import json
 import os
 import requests
 
-PLANET_API_KEY = '75c03d018975419abdf76b779154d5ae'
+PLANET_API_KEY = ''
 
 class MangrovePlanet():
     def __init__(self):
@@ -42,8 +42,12 @@ class MangrovePlanet():
     def fetch_analytic_sr_data(self, file_name, greater_than_date, less_than_date):
         # cloud cover percentage: 0-2% cloud cover; 
         # 1 unique tile ID per month
-        # 2016 
-        command = "planet -k {API_KEY} data download --item-type 'PSScene4Band' --asset-type 'analytic_sr' --date acquired gt '{greater_than_date}' --date acquired lt '{less_than_date}' --range cloud_cover lt '0.2' --geom '{file_name}' --dest 's3://path_here'".format(API_KEY=PLANET_API_KEY, greater_than_date=greater_than_date, less_than_date=less_than_date, file_name=file_name)
+        # 2016
+        # testing
+        #os.system("touch test.txt")
+        path = "/Users/sgadepalli/Google\ Drive\ \(mangroveplanet\@gmail.com\)/"
+        # os.system("mv test.txt {path}".format(path=path))
+        command = "planet -k {API_KEY} data download --item-type 'PSScene4Band' --asset-type 'analytic_sr' --date acquired gt '{greater_than_date}' --date acquired lt '{less_than_date}' --range cloud_cover lt '0.2' --geom '{file_name}' --dest '{PATH}'".format(API_KEY=PLANET_API_KEY, greater_than_date=greater_than_date, less_than_date=less_than_date, file_name=file_name, PATH=path)
         os.system(command)
 
 if __name__ == "__main__":
