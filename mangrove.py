@@ -1,6 +1,7 @@
 import json
 import os
 import requests
+from PIL import Image
 
 PLANET_API_KEY = ''
 
@@ -49,6 +50,10 @@ class MangrovePlanet():
         # os.system("mv test.txt {path}".format(path=path))
         command = "planet -k {API_KEY} data download --item-type 'PSScene4Band' --asset-type 'analytic_sr' --date acquired gt '{greater_than_date}' --date acquired lt '{less_than_date}' --range cloud_cover lt '0.2' --geom '{file_name}' --dest '{PATH}'".format(API_KEY=PLANET_API_KEY, greater_than_date=greater_than_date, less_than_date=less_than_date, file_name=file_name, PATH=path)
         os.system(command)
+    
+    def read_tif_image(self, image_path):
+        im = Image.open(image_path)
+        im.show()
 
 if __name__ == "__main__":
     mangrove = MangrovePlanet()
